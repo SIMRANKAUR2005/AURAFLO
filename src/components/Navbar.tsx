@@ -41,6 +41,12 @@ const Navbar = () => {
             Home
           </Link>
           <Link 
+            to="/products" 
+            className={`nav-link ${isActive('/products') ? 'text-aura-purple after:w-full' : ''}`}
+          >
+            Our Products
+          </Link>
+          <Link 
             to="/reviews" 
             className={`nav-link ${isActive('/reviews') ? 'text-aura-purple after:w-full' : ''}`}
           >
@@ -95,6 +101,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Home
+            </Link>
+            <Link 
+              to="/products" 
+              className={`nav-link block py-2 ${isActive('/products') ? 'text-aura-purple' : ''}`} 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Our Products
             </Link>
             <Link 
               to="/reviews" 
