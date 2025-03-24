@@ -21,6 +21,11 @@ const Products = () => {
         "Haptic guidance system",
         "Durable, eco-friendly materials",
         "10+ hours battery life"
+      ],
+      galleryImages: [
+        "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
       ]
     },
     {
@@ -37,6 +42,11 @@ const Products = () => {
         "Personalized angle recommendations",
         "Progress tracking dashboard",
         "15+ hours battery life"
+      ],
+      galleryImages: [
+        "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80",
+        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1694&q=80",
+        "https://images.unsplash.com/photo-1592106680408-e7e63efbc7ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80"
       ]
     },
     {
@@ -54,6 +64,11 @@ const Products = () => {
         "Meditation guidance & tracking",
         "Integration with health apps",
         "20+ hours battery life"
+      ],
+      galleryImages: [
+        "https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+        "https://images.unsplash.com/photo-1507413245164-6160d8298b31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1593164842264-854604db2260?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
       ]
     }
   ];
@@ -120,6 +135,22 @@ const Products = () => {
                         </div>
                       </div>
                     </div>
+                  </div>
+                  
+                  {/* Gallery Images */}
+                  <div className="mt-4 grid grid-cols-3 gap-2">
+                    {product.galleryImages.map((img, index) => (
+                      <div 
+                        key={index} 
+                        className="aspect-video rounded-lg overflow-hidden glass group hover-scale"
+                      >
+                        <img 
+                          src={img} 
+                          alt={`${product.name} - image ${index + 1}`} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                    ))}
                   </div>
                   
                   {/* Decorative Elements */}
