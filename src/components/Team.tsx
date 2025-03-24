@@ -7,25 +7,25 @@ const Team = () => {
       name: "Dr. Maya Patel",
       position: "Founder & CEO",
       bio: "Yoga practitioner with 15+ years experience and a PhD in Human-Computer Interaction. Passionate about making yoga accessible to everyone through technology.",
-      image: "https://randomuser.me/api/portraits/women/22.jpg"
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80"
     },
     {
       name: "Alex Wong",
       position: "Chief Technology Officer",
       bio: "Former AI researcher at leading tech companies with expertise in sensor technology and machine learning. Leads the development of our mat's intelligent systems.",
-      image: "https://randomuser.me/api/portraits/men/32.jpg"
+      image: "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
     },
     {
       name: "Sarah Johnson",
       position: "Head of Yoga Science",
       bio: "Certified yoga instructor and physical therapist who ensures our technology properly aligns with correct yoga practices and therapeutic benefits.",
-      image: "https://randomuser.me/api/portraits/women/45.jpg"
+      image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
     },
     {
       name: "David Chen",
       position: "Product Design Lead",
       bio: "Industrial designer with a focus on wellness products. Creates the seamless fusion of technology and comfort in our mats.",
-      image: "https://randomuser.me/api/portraits/men/67.jpg"
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
     }
   ];
 
@@ -49,39 +49,45 @@ const Team = () => {
           {team.map((member, index) => (
             <div 
               key={index}
-              className="glass rounded-xl overflow-hidden transition-all duration-300 group hover-scale"
+              className="glass rounded-xl overflow-hidden transition-all duration-500 group hover:shadow-xl hover:shadow-aura-purple/20 hover:translate-y-[-10px]"
             >
-              <div className="aspect-square overflow-hidden">
+              <div className="aspect-square overflow-hidden relative">
                 <img 
                   src={member.image} 
                   alt={member.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                  <div className="p-4">
+                    <h3 className="text-xl font-semibold text-white">{member.name}</h3>
+                    <p className="text-aura-purple text-sm">{member.position}</p>
+                  </div>
+                </div>
               </div>
               
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
+                <h3 className="text-xl font-semibold mb-1 group-hover:text-gradient transition-colors duration-300">{member.name}</h3>
                 <p className="text-aura-purple text-sm mb-3">{member.position}</p>
                 <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
                 
                 <div className="flex space-x-3">
                   <a 
                     href="#" 
-                    className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
+                    className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/30 transition-colors duration-300 hover:scale-110"
                     aria-label={`${member.name}'s LinkedIn`}
                   >
                     <Linkedin className="w-4 h-4" />
                   </a>
                   <a 
                     href="#" 
-                    className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
+                    className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/30 transition-colors duration-300 hover:scale-110"
                     aria-label={`${member.name}'s Twitter`}
                   >
                     <Twitter className="w-4 h-4" />
                   </a>
                   <a 
                     href="#" 
-                    className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
+                    className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/30 transition-colors duration-300 hover:scale-110"
                     aria-label={`${member.name}'s Website`}
                   >
                     <Globe className="w-4 h-4" />
