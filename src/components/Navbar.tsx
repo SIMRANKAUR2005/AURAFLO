@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X } from "lucide-react";
@@ -21,15 +20,23 @@ const Navbar = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "neo-blur py-3" : "bg-transparent py-5"
-      }`}
-    >
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-2 bg-aura-black/80 backdrop-blur-lg' : 'py-4 bg-transparent'}`}>
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center hover-scale">
-          <span className="text-2xl font-bold text-gradient">AURAFLV</span>
+        <Link to="/" className="flex items-center space-x-3 hover:scale-105 transition-transform duration-300">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-aura-purple/20 to-aura-green/20 p-1.5 ring-2 ring-aura-purple/30 hover:ring-aura-purple/60 hover:from-aura-purple/30 hover:to-aura-green/30 transition-all duration-300 animate-glow">
+            <img 
+              src="/images/logo.png"
+              alt="AuraFlo Logo" 
+              className="w-full h-full object-contain brightness-200 contrast-125"
+              onError={(e) => {
+                console.error('Failed to load logo');
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+              }}
+            />
+          </div>
+          <span className="text-2xl font-bold text-gradient">AURAFLO</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -53,10 +60,10 @@ const Navbar = () => {
             Reviews
           </Link>
           <Link 
-            to="/product/auraflv-3" 
-            className={`nav-link ${isActive('/product/auraflv-3') ? 'text-aura-purple after:w-full' : ''}`}
+            to="/product/auraflo-3" 
+            className={`nav-link ${isActive('/product/auraflo-3') ? 'text-aura-purple after:w-full' : ''}`}
           >
-            AuraFLV 3.0
+            AuraFlo 3.0
           </Link>
           <Link 
             to="/team" 
@@ -117,11 +124,11 @@ const Navbar = () => {
               Reviews
             </Link>
             <Link 
-              to="/product/auraflv-3" 
-              className={`nav-link block py-2 ${isActive('/product/auraflv-3') ? 'text-aura-purple' : ''}`} 
+              to="/product/auraflo-3" 
+              className={`nav-link block py-2 ${isActive('/product/auraflo-3') ? 'text-aura-purple' : ''}`} 
               onClick={() => setIsMenuOpen(false)}
             >
-              AuraFLV 3.0
+              AuraFlo 3.0
             </Link>
             <Link 
               to="/team" 
@@ -147,7 +154,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-    </header>
+    </nav>
   );
 };
 

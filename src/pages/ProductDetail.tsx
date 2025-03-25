@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ShoppingCart, Heart, Share2, ChevronRight, Check } from "lucide-react";
@@ -16,13 +15,13 @@ const ProductDetail = () => {
   
   // Product data (in a real app, this would come from an API)
   const products = {
-    "auraflv-1": {
-      name: "AuraFLV 1.0",
+    "auraflo-1": {
+      name: "AuraFlo 1.0",
       tagline: "Precision Sensing Technology",
       price: 199,
       discount: 0,
-      description: "The AuraFLV 1.0 uses advanced sensors to detect your position and provide real-time guidance, helping you achieve perfect alignment in every pose.",
-      longDescription: "The revolutionary AuraFLV 1.0 transforms your yoga practice through state-of-the-art pressure-sensitive technology. Embedded with over 1,000 precision sensors, the mat detects your positioning and weight distribution, providing instant feedback to help you achieve perfect alignment in every pose. The mat communicates through subtle haptic vibrations and LED indicators, guiding you toward proper form without disrupting your flow. Made from premium eco-friendly materials, the AuraFLV 1.0 offers superior comfort and durability while maintaining a commitment to sustainability. The mat connects seamlessly to our companion app (available for iOS and Android), allowing you to track your practice, set goals, and review your progress over time.",
+      description: "The AuraFlo 1.0 uses advanced sensors to detect your position and provide real-time guidance, helping you achieve perfect alignment in every pose.",
+      longDescription: "The revolutionary AuraFlo 1.0 transforms your yoga practice through state-of-the-art pressure-sensitive technology. Embedded with over 1,000 precision sensors, the mat detects your positioning and weight distribution, providing instant feedback to help you achieve perfect alignment in every pose. The mat communicates through subtle haptic vibrations and LED indicators, guiding you toward proper form without disrupting your flow. Made from premium eco-friendly materials, the AuraFlo 1.0 offers superior comfort and durability while maintaining a commitment to sustainability. The mat connects seamlessly to our companion app (available for iOS and Android), allowing you to track your practice, set goals, and review your progress over time.",
       colors: ["Midnight Black", "Deep Purple", "Forest Green"],
       features: [
         "Pressure-sensitive positioning",
@@ -43,21 +42,21 @@ const ProductDetail = () => {
         warranty: "1 year limited warranty"
       },
       images: [
-        "https://placehold.co/600x400/3E9278/FFFFFF?text=AuraFLV+1.0",
+        "https://placehold.co/600x400/3E9278/FFFFFF?text=AuraFlo+1.0",
         "https://placehold.co/600x400/7E69AB/FFFFFF?text=Sensors+View",
         "https://placehold.co/600x400/2A7252/FFFFFF?text=App+Interface"
       ]
     },
-    "auraflv-2": {
-      name: "AuraFLV 2.0",
+    "auraflo-2": {
+      name: "AuraFlo 2.0",
       tagline: "Visual Insight Technology",
       price: 299,
       discount: 0,
-      description: "Building on the 1.0, the AuraFLV 2.0 adds camera technology that analyzes your form based on your unique body measurements, providing personalized guidance.",
-      longDescription: "The AuraFLV 2.0 takes your practice to the next level with integrated camera technology that works alongside our pressure-sensitive mat to provide comprehensive form analysis. The discreet camera module can be placed on any standard device stand and uses advanced computer vision to analyze your posture, tracking 32 key body points to ensure proper alignment based on your unique body type. Before your first session, the system collects your height, weight, and age to provide guidance tailored specifically to your body's needs and capabilities. The companion app offers an expanded experience with 3D visualizations of your poses, highlighting areas for improvement and tracking your progress with detailed metrics and insights. The improved battery life ensures you can practice for longer between charges, and the enhanced mat sensors provide even more accurate feedback than the original model.",
+      description: "Building on the 1.0, the AuraFlo 2.0 adds camera technology that analyzes your form based on your unique body measurements, providing personalized guidance.",
+      longDescription: "The AuraFlo 2.0 takes your practice to the next level with integrated camera technology that works alongside our pressure-sensitive mat to provide comprehensive form analysis. The discreet camera module can be placed on any standard device stand and uses advanced computer vision to analyze your posture, tracking 32 key body points to ensure proper alignment based on your unique body type. Before your first session, the system collects your height, weight, and age to provide guidance tailored specifically to your body's needs and capabilities. The companion app offers an expanded experience with 3D visualizations of your poses, highlighting areas for improvement and tracking your progress with detailed metrics and insights. The improved battery life ensures you can practice for longer between charges, and the enhanced mat sensors provide even more accurate feedback than the original model.",
       colors: ["Midnight Black", "Deep Purple", "Forest Green", "Ocean Blue"],
       features: [
-        "All AuraFLV 1.0 features",
+        "All AuraFlo 1.0 features",
         "AI camera analysis system",
         "Body composition insights",
         "Personalized angle recommendations",
@@ -76,21 +75,21 @@ const ProductDetail = () => {
         warranty: "2 year limited warranty"
       },
       images: [
-        "https://placehold.co/600x400/6E59A5/FFFFFF?text=AuraFLV+2.0",
+        "https://placehold.co/600x400/6E59A5/FFFFFF?text=AuraFlo+2.0",
         "https://placehold.co/600x400/3E9278/FFFFFF?text=Camera+Module",
         "https://placehold.co/600x400/080808/FFFFFF?text=Analysis+View"
       ]
     },
-    "auraflv-3": {
-      name: "AuraFLV 3.0",
+    "auraflo-3": {
+      name: "AuraFlo 3.0",
       tagline: "Intelligent Coaching System",
       price: 399,
       discount: 50,
-      description: "Our premium model, the AuraFLV 3.0 introduces conversational AI that provides verbal guidance, answers questions, and creates custom yoga routines based on your health needs.",
-      longDescription: "The AuraFLV 3.0 represents the pinnacle of smart yoga technology, combining all the features of previous models with our groundbreaking AI coaching system. The integrated voice assistant can hear your questions and provide real-time verbal guidance during your practice, offering adjustment suggestions, answering technique questions, and providing encouragement when you need it most. The system learns your preferences, strengths, and areas for improvement over time, creating a truly personalized yoga experience that evolves with you. Share your health goals and concerns with the AI, and it will design custom routines to address specific issues like back pain, stress, flexibility, or strength building. The premium materials offer enhanced comfort for longer sessions, while the extended battery life ensures your mat is always ready when you are. The AuraFLV 3.0 also features expanded integration capabilities, connecting with popular health and fitness apps to provide a comprehensive view of your wellness journey.",
+      description: "Our premium model, the AuraFlo 3.0 introduces conversational AI that provides verbal guidance, answers questions, and creates custom yoga routines based on your health needs.",
+      longDescription: "The AuraFlo 3.0 represents the pinnacle of smart yoga technology, combining all the features of previous models with our groundbreaking AI coaching system. The integrated voice assistant can hear your questions and provide real-time verbal guidance during your practice, offering adjustment suggestions, answering technique questions, and providing encouragement when you need it most. The system learns your preferences, strengths, and areas for improvement over time, creating a truly personalized yoga experience that evolves with you. Share your health goals and concerns with the AI, and it will design custom routines to address specific issues like back pain, stress, flexibility, or strength building. The premium materials offer enhanced comfort for longer sessions, while the extended battery life ensures your mat is always ready when you are. The AuraFlo 3.0 also features expanded integration capabilities, connecting with popular health and fitness apps to provide a comprehensive view of your wellness journey.",
       colors: ["Midnight Black", "Deep Purple", "Forest Green", "Ocean Blue", "Sunset Orange"],
       features: [
-        "All AuraFLV 2.0 features",
+        "All AuraFlo 2.0 features",
         "Advanced AI coaching system",
         "Voice interaction capability",
         "Health-based routine creation",
@@ -111,7 +110,7 @@ const ProductDetail = () => {
         warranty: "3 year limited warranty"
       },
       images: [
-        "https://placehold.co/600x400/7E69AB/FFFFFF?text=AuraFLV+3.0",
+        "https://placehold.co/600x400/7E69AB/FFFFFF?text=AuraFlo+3.0",
         "https://placehold.co/600x400/2A7252/FFFFFF?text=AI+Assistant",
         "https://placehold.co/600x400/6E59A5/FFFFFF?text=Voice+Interaction"
       ]

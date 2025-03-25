@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 
@@ -12,35 +11,35 @@ const Reviews = () => {
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
       role: "Yoga Instructor",
       stars: 5,
-      text: "The AuraFLV 3.0 has revolutionized how I teach. My students receive personalized guidance, and I can focus on more nuanced aspects of the practice. The AI assistant gives detailed advice that complements my teaching perfectly."
+      text: "The AuraFlo 3.0 has revolutionized how I teach. My students receive personalized guidance, and I can focus on more nuanced aspects of the practice. The AI assistant gives detailed advice that complements my teaching perfectly."
     },
     {
       name: "Michael Chen",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
       role: "Fitness Enthusiast",
       stars: 5,
-      text: "As someone with back problems, finding the right yoga positions was always challenging. The AuraFLV 2.0's camera system helped me adjust my poses to avoid strain. My physical therapist is amazed at the improvement in my form."
+      text: "As someone with back problems, finding the right yoga positions was always challenging. The AuraFlo 2.0's camera system helped me adjust my poses to avoid strain. My physical therapist is amazed at the improvement in my form."
     },
     {
       name: "Sophia Rodriguez",
       image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
       role: "Wellness Coach",
       stars: 5,
-      text: "I recommend the AuraFLV line to all my clients. The detailed feedback ensures proper alignment, preventing injuries. The 3.0 model's AI capabilities create perfectly tailored routines based on individual needs and goals."
+      text: "I recommend the AuraFlo line to all my clients. The detailed feedback ensures proper alignment, preventing injuries. The 3.0 model's AI capabilities create perfectly tailored routines based on individual needs and goals."
     },
     {
       name: "David Kim",
       image: "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
       role: "Beginner Yogi",
       stars: 4,
-      text: "I started with the AuraFLV 1.0 as a complete yoga beginner. The sensor guidance helped me understand proper positioning without feeling overwhelmed. It's like having a teacher with you during every session."
+      text: "I started with the AuraFlo 1.0 as a complete yoga beginner. The sensor guidance helped me understand proper positioning without feeling overwhelmed. It's like having a teacher with you during every session."
     },
     {
       name: "Aisha Patel",
       image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80",
       role: "Meditation Expert",
       stars: 5,
-      text: "The AuraFLV 3.0 has surprising benefits for meditation practices too. The AI guides breathing exercises and provides feedback on posture during long sessions. It's transformed my daily meditation ritual completely."
+      text: "The AuraFlo 3.0 has surprising benefits for meditation practices too. The AI guides breathing exercises and provides feedback on posture during long sessions. It's transformed my daily meditation ritual completely."
     }
   ];
 
@@ -48,7 +47,6 @@ const Reviews = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          // Add animation when the component comes into view
           if (reviewsContainerRef.current) {
             reviewsContainerRef.current.classList.add('animate-fade-in');
           }
@@ -77,14 +75,6 @@ const Reviews = () => {
     setActiveIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextReview();
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section id="reviews" className="py-20 relative overflow-hidden">
       {/* Background Elements */}
@@ -96,12 +86,12 @@ const Reviews = () => {
             What Our <span className="text-gradient">Customers</span> Say
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Read what yogis, instructors, and wellness enthusiasts have experienced with AuraFLV.
+            Read what yogis, instructors, and wellness enthusiasts have experienced with AuraFlo.
           </p>
         </div>
         
         {/* Reviews Carousel */}
-        <div ref={reviewsContainerRef} className="opacity-0">
+        <div ref={reviewsContainerRef}>
           <div className="relative max-w-4xl mx-auto">
             {/* Navigation Buttons */}
             <button 
@@ -109,7 +99,7 @@ const Reviews = () => {
               className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 glass rounded-full flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300 md:-left-12 group"
               aria-label="Previous review"
             >
-              <ChevronLeft className="w-5 h-5 group-hover:scale-125 transition-transform duration-300" />
+              <ChevronLeft className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
             </button>
             
             <button 
@@ -117,7 +107,7 @@ const Reviews = () => {
               className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 glass rounded-full flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300 md:-right-12 group"
               aria-label="Next review"
             >
-              <ChevronRight className="w-5 h-5 group-hover:scale-125 transition-transform duration-300" />
+              <ChevronRight className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
             </button>
             
             {/* Reviews */}
@@ -126,15 +116,16 @@ const Reviews = () => {
                 <Quote className="w-6 h-6 text-aura-purple" />
               </div>
               
-              {reviews.map((review, index) => (
-                <div 
-                  key={index}
-                  className={`transition-all duration-700 ${
-                    index === activeIndex ? "opacity-100 translate-y-0" : "opacity-0 absolute top-0 left-0 translate-y-4"
-                  }`}
-                  aria-hidden={index !== activeIndex}
-                >
-                  {index === activeIndex && (
+              <div className="relative min-h-[300px]">
+                {reviews.map((review, index) => (
+                  <div 
+                    key={index}
+                    className={`absolute inset-0 transition-all duration-500 ${
+                      index === activeIndex 
+                        ? "opacity-100 translate-y-0 pointer-events-auto" 
+                        : "opacity-0 translate-y-4 pointer-events-none"
+                    }`}
+                  >
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                       <div className="w-32 h-32 rounded-full overflow-hidden shrink-0 border-2 border-aura-purple shadow-lg shadow-aura-purple/20 group-hover:shadow-aura-purple/40 transition-all duration-500">
                         <img 
@@ -164,9 +155,9 @@ const Reviews = () => {
                         </div>
                       </div>
                     </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
             
             {/* Indicators */}

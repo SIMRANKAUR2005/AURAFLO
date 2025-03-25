@@ -1,5 +1,4 @@
-
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { 
   Activity, 
   Compass, 
@@ -13,41 +12,6 @@ import {
 } from "lucide-react";
 
 const Features = () => {
-  const featuresRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Find all elements with the animate-reveal class
-            const elements = entry.target.querySelectorAll('.animate-reveal');
-            // Add the 'reveal' class to each element with a staggered delay
-            elements.forEach((el, index) => {
-              setTimeout(() => {
-                el.classList.add('reveal');
-              }, 150 * index);
-            });
-            
-            // Stop observing once revealed
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (featuresRef.current) {
-      observer.observe(featuresRef.current);
-    }
-
-    return () => {
-      if (featuresRef.current) {
-        observer.unobserve(featuresRef.current);
-      }
-    };
-  }, []);
-
   const features = [
     {
       icon: <Compass />,
@@ -113,14 +77,11 @@ const Features = () => {
         </div>
         
         {/* Features Grid */}
-        <div 
-          ref={featuresRef} 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="animate-reveal glass rounded-xl p-6 transition-all duration-300 hover:translate-y-[-5px] hover:shadow-lg"
+              className="glass rounded-xl p-6 hover:translate-y-[-5px] hover:shadow-lg transition-transform duration-300"
             >
               <div className="w-12 h-12 rounded-full glass flex items-center justify-center mb-4 text-aura-purple">
                 {feature.icon}

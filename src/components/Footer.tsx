@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Instagram, Twitter, Facebook, Youtube, Mail, MapPin, Phone } from "lucide-react";
 
@@ -13,8 +12,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand Column */}
           <div>
-            <Link to="/" className="inline-block mb-6">
-              <span className="text-2xl font-bold text-gradient">AURAFLV</span>
+            <Link to="/" className="inline-flex items-center space-x-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-aura-purple/20 to-aura-green/20 p-2 ring-2 ring-aura-purple/30">
+                <img src="/images/logo.png" alt="AuraFlo Logo" className="w-full h-full object-contain" />
+              </div>
+              <span className="text-2xl font-bold text-gradient">AURAFLO</span>
             </Link>
             <p className="text-muted-foreground mb-6">
               Transforming yoga practice through innovative technology and mindful design. Experience the future of wellness.
@@ -88,18 +90,18 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-6">Our Products</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/product/auraflv-1" className="text-muted-foreground hover:text-aura-purple transition-colors duration-300">
-                  AuraFLV 1.0
+                <Link to="/product/auraflo-1" className="text-muted-foreground hover:text-aura-purple transition-colors duration-300">
+                  AuraFlo 1.0
                 </Link>
               </li>
               <li>
-                <Link to="/product/auraflv-2" className="text-muted-foreground hover:text-aura-purple transition-colors duration-300">
-                  AuraFLV 2.0
+                <Link to="/product/auraflo-2" className="text-muted-foreground hover:text-aura-purple transition-colors duration-300">
+                  AuraFlo 2.0
                 </Link>
               </li>
               <li>
-                <Link to="/product/auraflv-3" className="text-muted-foreground hover:text-aura-purple transition-colors duration-300">
-                  AuraFLV 3.0
+                <Link to="/product/auraflo-3" className="text-muted-foreground hover:text-aura-purple transition-colors duration-300">
+                  AuraFlo 3.0
                 </Link>
               </li>
               <li>
@@ -122,16 +124,16 @@ const Footer = () => {
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 text-aura-purple shrink-0 mr-3 mt-0.5" />
                 <span className="text-muted-foreground">
-                  123 Wellness Way, Tech Valley<br />California, 94103
+                  Thapar University <br />Patiala, 147001
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 text-aura-purple shrink-0 mr-3" />
-                <span className="text-muted-foreground">+1 (555) 123-4567</span>
+                <span className="text-muted-foreground">+91 **********</span>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-aura-purple shrink-0 mr-3" />
-                <span className="text-muted-foreground">info@auraflv.com</span>
+                <span className="text-muted-foreground">info@auraflo.com</span>
               </li>
             </ul>
           </div>
@@ -140,7 +142,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="pt-8 border-t border-aura-purple/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} AuraFLV. All rights reserved.
+            © {new Date().getFullYear()} AuraFlo. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <Link to="/privacy" className="text-sm text-muted-foreground hover:text-aura-purple transition-colors duration-300">

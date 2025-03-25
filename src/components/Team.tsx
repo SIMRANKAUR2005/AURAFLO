@@ -1,28 +1,27 @@
-
 import { Linkedin, Twitter, Globe } from "lucide-react";
 
 const Team = () => {
   const team = [
     {
-      name: "Dr. Maya Patel",
+      name: "Angad",
       position: "Founder & CEO",
-      bio: "Yoga practitioner with 15+ years experience and a PhD in Human-Computer Interaction. Passionate about making yoga accessible to everyone through technology.",
+      bio: " Passionate about making yoga accessible to everyone through technology.",
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80"
     },
     {
-      name: "Alex Wong",
-      position: "Chief Technology Officer",
+      name: "Priyam Ganguli",
+      position: "Co-CEO",
       bio: "Former AI researcher at leading tech companies with expertise in sensor technology and machine learning. Leads the development of our mat's intelligent systems.",
       image: "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
     },
     {
-      name: "Sarah Johnson",
+      name: "Something",
       position: "Head of Yoga Science",
       bio: "Certified yoga instructor and physical therapist who ensures our technology properly aligns with correct yoga practices and therapeutic benefits.",
       image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
     },
     {
-      name: "David Chen",
+      name: "BLABLa",
       position: "Product Design Lead",
       bio: "Industrial designer with a focus on wellness products. Creates the seamless fusion of technology and comfort in our mats.",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
@@ -41,7 +40,7 @@ const Team = () => {
             Meet Our <span className="text-gradient">Team</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            The passionate innovators behind AuraFLV, bringing together expertise in yoga, technology, and design.
+            The passionate innovators behind AuraFlo, bringing together expertise in yoga, technology, and design.
           </p>
         </div>
         
