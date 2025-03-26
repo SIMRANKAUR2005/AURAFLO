@@ -71,6 +71,12 @@ const Navbar = () => {
           >
             Our Team
           </Link>
+          <Link 
+            to="/contact-us" 
+            className={`nav-link ${isActive('/contact-us') ? 'text-aura-purple after:w-full' : ''}`}
+          >
+            Contact Us
+          </Link>
         </nav>
 
         {/* Search and Cart */}
@@ -136,6 +142,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Our Team
+            </Link>
+            <Link 
+              to="/contact-us" 
+              className={`nav-link block py-2 ${isActive('/contact-us') ? 'text-aura-purple' : ''}`} 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact Us
             </Link>
             
             <div className="relative mt-2">
