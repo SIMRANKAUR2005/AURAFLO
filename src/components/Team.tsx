@@ -14,13 +14,13 @@ const Team = () => {
     {
       name: "Priyam Ganguli",
       position: "Co-Founder,AuraFLO",
-      bio: "Passionate about making yoga accessible to everyone through technology.",
+      bio: "Passionate about revolutionizing AI-integrated mats, transforming everyday surfaces into intelligent, responsive environments. Co-creating the future with AuraFlo AI Mats!",
       image: greenImage
     },
     {
       name: "Bhavishya Singla",
       position: "CBO,AuraFLO",
-      bio: "Passionate about making yoga accessible to everyone through technology.",
+      bio: "Driving strategic growth and market expansion for AuraFlo AI Mats, bridging innovation with business excellence to redefine intelligent flooring solutions",
       image: bwImage
     }
   ];
