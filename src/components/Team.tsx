@@ -2,6 +2,7 @@ import { Linkedin, Twitter, Globe } from "lucide-react";
 import vlsiImage from "../assets/team/ankit-vlsi.jpeg";
 import greenImage from "../assets/team/ankit-green.jpeg";
 import bwImage from "../assets/team/ankit-bw.jpeg";
+import vedikaImage from "../assets/team/vedika.jpg";
 
 const Team = () => {
   const team = [
@@ -16,6 +17,12 @@ const Team = () => {
       position: "Co-Founder,AuraFLO",
       bio: "Passionate about revolutionizing AI-integrated mats, transforming everyday surfaces into intelligent, responsive environments. Co-creating the future with AuraFlo AI Mats!",
       image: greenImage
+    },
+    {
+      name: "Vedika Chawla",
+      position: "Founding Member,AuraFLO",
+      bio: "Dedicated to creating innovative technology solutions with a focus on user experience and accessibility.",
+      image: vedikaImage
     },
     {
       name: "Bhavishya Singla",
@@ -41,7 +48,7 @@ const Team = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {team.map((member, index) => (
             <div 
               key={index}
@@ -51,7 +58,7 @@ const Team = () => {
                 <img 
                   src={member.image} 
                   alt={member.name} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
                   <div className="p-4">
