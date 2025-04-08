@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Twitter, Facebook, Youtube, Mail, MapPin, Phone } from "lucide-react";
+import { Instagram, Twitter, Facebook, Youtube, Mail, MapPin, Phone, ArrowRight } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -7,6 +7,13 @@ const Footer = () => {
       {/* Background Elements */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-aura-purple/50 to-transparent"></div>
       <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_bottom_left,rgba(126,105,171,0.05),transparent_40%)]"></div>
+      
+      {/* Logo Background */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+        <div className="w-96 h-96">
+          <img src="/images/logo.png" alt="" className="w-full h-full object-contain" />
+        </div>
+      </div>
       
       <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -23,7 +30,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.instagram.com/aurafloo.ai?igsh=MXU5emE4dG1xc2Fhdw=="
                 className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
                 aria-label="Instagram"
               >
@@ -118,9 +125,9 @@ const Footer = () => {
           </div>
           
           {/* Contact */}
-          <div>
+          <div className="glass p-6 rounded-xl backdrop-blur-sm">
             <h3 className="text-lg font-semibold mb-6">Contact Us</h3>
-            <ul className="space-y-4">
+            <ul className="space-y-4 mb-6">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 text-aura-purple shrink-0 mr-3 mt-0.5" />
                 <span className="text-muted-foreground">
@@ -133,9 +140,17 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-aura-purple shrink-0 mr-3" />
-                <span className="text-muted-foreground">info@auraflo.com</span>
+                <a href="mailto:info@auraflo.com" className="text-muted-foreground hover:text-aura-purple transition-colors duration-300">
+                  info@auraflo.com
+                </a>
               </li>
             </ul>
+            <Link 
+              to="/contact-us" 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-aura-purple/20 hover:bg-aura-purple/30 transition-colors duration-300 text-sm"
+            >
+              Get in Touch <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
         

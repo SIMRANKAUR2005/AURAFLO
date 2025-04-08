@@ -2,6 +2,7 @@ import { Linkedin, Twitter, Globe } from "lucide-react";
 import vlsiImage from "../assets/team/ankit-vlsi.jpeg";
 import greenImage from "../assets/team/ankit-green.jpeg";
 import bwImage from "../assets/team/ankit-bw.jpeg";
+import vedikaImage from "../assets/team/vedika.jpeg";
 
 const Team = () => {
   const team = [
@@ -22,6 +23,13 @@ const Team = () => {
       position: "CBO,AuraFLO",
       bio: "Driving strategic growth and market expansion for AuraFlo AI Mats, bridging innovation with business excellence to redefine intelligent flooring solutions",
       image: bwImage
+    },
+    {
+      name: "Vedika Chawla",
+      position: "Founding Member,AuraFLO",
+      bio: "Contributing to the innovation and development of AuraFLO's intelligent mat technology, helping shape the future of interactive surfaces.",
+      image: vedikaImage,
+      imagePosition: "top"
     }
   ];
 
@@ -41,17 +49,20 @@ const Team = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {team.map((member, index) => (
             <div 
               key={index}
               className="glass rounded-xl overflow-hidden transition-all duration-500 group hover:shadow-xl hover:shadow-aura-purple/20 hover:translate-y-[-10px]"
             >
-              <div className="aspect-square overflow-hidden relative">
+              <div className="aspect-square overflow-hidden relative flex items-center justify-center">
                 <img 
                   src={member.image} 
                   alt={member.name} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className={`h-full w-auto min-w-full object-cover transition-transform duration-700 group-hover:scale-110 ${
+                    member.imagePosition === "top" ? "object-top" : "object-center"
+                  }`}
+                  style={{ objectPosition: member.imagePosition === "top" ? "center 15%" : "center center" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-aura-black/90 via-aura-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
                   <div className="p-4">
