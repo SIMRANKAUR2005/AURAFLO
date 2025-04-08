@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X } from "lucide-react";
 import { useSearch } from "../contexts/SearchContext";
 import { useCart } from "../contexts/CartContext";
@@ -8,22 +8,30 @@ import logo from "../assets/logo.png";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { searchQuery, setSearchQuery, handleSearch } = useSearch();
   const { totalItems } = useCart();
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("");
 
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About Us", path: "/about" },
-    { name: "Products", path: "/products" },
-    { name: "Accessories", path: "/accessories" },
-    { name: "Support & FAQ", path: "/support" },
-    { name: "Reviews", path: "/reviews" },
-    { name: "Team", path: "/team" },
-    { name: "Contact", path: "/contact" }
+  // Search data
+  const searchableItems = [
+    { title: "AuraFlo 1.0", type: "product", link: "/product/auraflo-1", description: "Precision Sensing Technology" },
+    { title: "AuraFlo 2.0", type: "product", link: "/product/auraflo-2", description: "Visual Insight Technology" },
+    { title: "AuraFlo 3.0", type: "product", link: "/product/auraflo-3", description: "Intelligent Coaching System" },
+    { title: "Our Products", type: "page", link: "/products", description: "View all our products" },
+    { title: "Reviews", type: "page", link: "/reviews", description: "Customer reviews and testimonials" },
+    { title: "Our Team", type: "page", link: "/team", description: "Meet our team" },
+    { title: "Contact Us", type: "page", link: "/contact", description: "Get in touch with us" }
   ];
+
+  // Filter suggestions based on search query
+  const suggestions = searchQuery
+    ? searchableItems.filter(item =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,28 +41,46 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.search-container')) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   const isActive = (path: string) => {
     return location.pathname === path;
   };
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSearch();
+  const handleSuggestionClick = (link: string) => {
+    navigate(link);
+    setSearchQuery("");
+    setShowSuggestions(false);
   };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isScrolled ? 'bg-aura-black/80 backdrop-blur-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <img
-            src={logo}
-            alt="AuraFLO Logo"
-            className="h-8 w-auto"
-          />
-          <span className="text-2xl font-bold bg-gradient-to-r from-aura-purple to-aura-green bg-clip-text text-transparent">
-            AURAFLO
-          </span>
+        <Link to="/" className="flex items-center space-x-3 hover:scale-105 transition-transform duration-300">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-aura-purple/20 to-aura-green/20 p-1.5 ring-2 ring-aura-purple/30 hover:ring-aura-purple/60 hover:from-aura-purple/30 hover:to-aura-green/30 transition-all duration-300">
+            <img 
+              src={logo}
+              alt="AuraFlo Logo" 
+              className="w-full h-full object-contain brightness-150"
+              onError={(e) => {
+                console.error('Failed to load logo');
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+              }}
+            />
+          </div>
+          <span className="text-2xl font-bold text-gradient">AURAFLO</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -99,16 +125,44 @@ const Navbar = () => {
 
         {/* Search and Cart */}
         <div className="hidden md:flex items-center space-x-4">
-          <form onSubmit={handleSearchSubmit} className="relative">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="py-1.5 pl-10 pr-4 rounded-full text-sm neo-blur w-36 focus:w-48 transition-all duration-300 focus:outline-none"
-            />
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-          </form>
+          <div className="relative search-container">
+            <form onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                className="py-1.5 pl-10 pr-4 rounded-full text-sm neo-blur w-36 focus:w-48 transition-all duration-300 focus:outline-none"
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            </form>
+
+            {/* Search Suggestions */}
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute mt-2 w-64 max-h-96 overflow-y-auto rounded-lg neo-blur backdrop-blur-lg border border-aura-purple/20">
+                <div className="p-2">
+                  {suggestions.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleSuggestionClick(item.link)}
+                      className="w-full text-left px-4 py-2 rounded hover:bg-aura-purple/20 transition-colors duration-300"
+                    >
+                      <div className="flex items-start">
+                        <div>
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-sm text-muted-foreground">{item.description}</div>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
           <Link to="/cart" className="relative hover-scale text-white p-2 rounded-full hover:bg-aura-purple/10 transition-colors duration-300">
             <ShoppingCart className="w-5 h-5" />
             {totalItems > 0 && (
@@ -175,16 +229,47 @@ const Navbar = () => {
               Contact Us
             </Link>
             
-            <form onSubmit={handleSearchSubmit} className="relative mt-2">
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full py-2 pl-10 pr-4 rounded-full neo-blur focus:outline-none"
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            </form>
+            <div className="relative mt-2">
+              <form onSubmit={handleSearch}>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setShowSuggestions(true);
+                  }}
+                  onFocus={() => setShowSuggestions(true)}
+                  className="w-full py-2 pl-10 pr-4 rounded-full neo-blur focus:outline-none"
+                />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              </form>
+
+              {/* Mobile Search Suggestions */}
+              {showSuggestions && suggestions.length > 0 && (
+                <div className="absolute mt-2 w-full max-h-96 overflow-y-auto rounded-lg neo-blur backdrop-blur-lg border border-aura-purple/20">
+                  <div className="p-2">
+                    {suggestions.map((item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          handleSuggestionClick(item.link);
+                          setIsMenuOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-2 rounded hover:bg-aura-purple/20 transition-colors duration-300"
+                      >
+                        <div className="flex items-start">
+                          <div>
+                            <div className="font-medium">{item.title}</div>
+                            <div className="text-sm text-muted-foreground">{item.description}</div>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
             
             <Link to="/cart" className="flex items-center space-x-2 py-2 hover:text-aura-purple transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
               <ShoppingCart className="w-5 h-5" />
