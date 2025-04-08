@@ -3,15 +3,24 @@ import { useParams, Link } from "react-router-dom";
 import { ShoppingCart, Heart, Share2, ChevronRight, Check } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { toast } from "@/components/ui/use-toast";
+import { useCart } from "../contexts/CartContext";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [activeImage, setActiveImage] = useState(0);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addToCart } = useCart();
   
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    // Set default color
+    if (product && product.colors.length > 0) {
+      setSelectedColor(product.colors[0]);
+    }
+  }, [id]);
   
   // Product data (in a real app, this would come from an API)
   const products = {
@@ -143,6 +152,56 @@ const ProductDetail = () => {
     ? product.price - product.discount 
     : product.price;
 
+  const handleAddToCart = () => {
+    if (!selectedColor) {
+      toast({
+        title: "Please select a color",
+        description: "Choose a color before adding to cart",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: finalPrice,
+      quantity: 1,
+      color: selectedColor,
+      image: product.images[0]
+    });
+    
+    toast({
+      title: "Added to cart!",
+      description: `${product.name} in ${selectedColor} has been added to your cart.`
+    });
+  };
+
+  const handleWishlist = () => {
+    setIsWishlisted(!isWishlisted);
+    toast({
+      title: isWishlisted ? "Removed from wishlist" : "Added to wishlist",
+      description: `${product.name} has been ${isWishlisted ? 'removed from' : 'added to'} your wishlist.`
+    });
+  };
+
+  const handleShare = async () => {
+    try {
+      await navigator.share({
+        title: product.name,
+        text: product.description,
+        url: window.location.href
+      });
+    } catch (err) {
+      // Fallback for browsers that don't support share API
+      navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "Link copied!",
+        description: "Product link has been copied to clipboard."
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-aura-black">
       <Navbar />
@@ -220,10 +279,15 @@ const ProductDetail = () => {
             <div className="mb-8">
               <h3 className="font-medium mb-3">Color</h3>
               <div className="flex space-x-3">
-                {product.colors.map((color, index) => (
+                {product.colors.map((color) => (
                   <button
-                    key={index}
-                    className="w-8 h-8 rounded-full border border-aura-purple/30 flex items-center justify-center"
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                      selectedColor === color 
+                        ? 'border-aura-purple scale-110' 
+                        : 'border-aura-purple/30 hover:border-aura-purple/60'
+                    }`}
                     title={color}
                   >
                     <span 
@@ -234,7 +298,10 @@ const ProductDetail = () => {
                         color === "Ocean Blue" ? "bg-blue-600" :
                         "bg-orange-500" // Sunset Orange
                       }`}
-                    ></span>
+                    />
+                    {selectedColor === color && (
+                      <Check className="absolute w-3 h-3 text-white" />
+                    )}
                   </button>
                 ))}
               </div>
@@ -242,14 +309,25 @@ const ProductDetail = () => {
             
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 mb-10">
-              <button className="flex-1 min-w-[150px] px-6 py-3 rounded-full bg-aura-purple hover:bg-aura-purple-light transition-colors duration-300 font-medium flex items-center justify-center gap-2">
+              <button 
+                onClick={handleAddToCart}
+                className="flex-1 min-w-[150px] px-6 py-3 rounded-full bg-aura-purple hover:bg-aura-purple-light transition-colors duration-300 font-medium flex items-center justify-center gap-2"
+              >
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
-              <button className="p-3 rounded-full glass hover:bg-aura-purple/20 transition-colors duration-300">
-                <Heart className="w-5 h-5" />
+              <button 
+                onClick={handleWishlist}
+                className={`p-3 rounded-full glass transition-colors duration-300 ${
+                  isWishlisted ? 'bg-aura-purple text-white' : 'hover:bg-aura-purple/20'
+                }`}
+              >
+                <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
               </button>
-              <button className="p-3 rounded-full glass hover:bg-aura-purple/20 transition-colors duration-300">
+              <button 
+                onClick={handleShare}
+                className="p-3 rounded-full glass hover:bg-aura-purple/20 transition-colors duration-300"
+              >
                 <Share2 className="w-5 h-5" />
               </button>
             </div>

@@ -1,7 +1,17 @@
-import { ArrowRight } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const Hero = () => {
+  useEffect(() => {
+    const logo = new Image();
+    logo.src = logo;
+    logo.onerror = () => {
+      console.error('Failed to load background logo');
+    };
+  }, []);
+
   return (
     <section className="relative pt-28 md:pt-36 pb-20 overflow-hidden">
       {/* Background Elements */}
@@ -9,20 +19,12 @@ const Hero = () => {
       <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-aura-green/5 blur-3xl rounded-full transform -translate-x-1/4 translate-y-1/4 pointer-events-none"></div>
       
       {/* Large Logo Background */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="relative w-[800px] h-[800px]">
-          <div className="absolute inset-0 bg-gradient-to-br from-aura-purple/5 to-aura-green/5 rounded-full blur-3xl animate-glow"></div>
+      <div className="absolute inset-0 flex items-center justify-center opacity-5">
           <img 
-            src="/images/logo.png"
-            alt="" 
-            className="w-full h-full object-contain opacity-10 animate-float brightness-200 contrast-125"
-            onError={(e) => {
-              console.error('Failed to load background logo');
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
-            }}
-          />
-        </div>
+          src={logo}
+          alt="AuraFLO Background"
+          className="w-full h-full object-contain"
+        />
       </div>
       
       <div className="container mx-auto px-4">

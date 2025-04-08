@@ -1,11 +1,29 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X } from "lucide-react";
+import { useSearch } from "../contexts/SearchContext";
+import { useCart } from "../contexts/CartContext";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { searchQuery, setSearchQuery, handleSearch } = useSearch();
+  const { totalItems } = useCart();
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("");
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/about" },
+    { name: "Products", path: "/products" },
+    { name: "Accessories", path: "/accessories" },
+    { name: "Support & FAQ", path: "/support" },
+    { name: "Reviews", path: "/reviews" },
+    { name: "Team", path: "/team" },
+    { name: "Contact", path: "/contact" }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,24 +37,24 @@ const Navbar = () => {
     return location.pathname === path;
   };
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSearch();
+  };
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-2 bg-aura-black/80 backdrop-blur-lg' : 'py-4 bg-transparent'}`}>
-      <div className="container mx-auto px-4 flex items-center justify-between">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isScrolled ? 'bg-aura-black/80 backdrop-blur-md' : 'bg-transparent'}`}>
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-3 hover:scale-105 transition-transform duration-300">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-aura-purple/20 to-aura-green/20 p-1.5 ring-2 ring-aura-purple/30 hover:ring-aura-purple/60 hover:from-aura-purple/30 hover:to-aura-green/30 transition-all duration-300 animate-glow">
-            <img 
-              src="/images/logo.png"
-              alt="AuraFlo Logo" 
-              className="w-full h-full object-contain brightness-200 contrast-125"
-              onError={(e) => {
-                console.error('Failed to load logo');
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-              }}
-            />
-          </div>
-          <span className="text-2xl font-bold text-gradient">AURAFLO</span>
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src={logo}
+            alt="AuraFLO Logo"
+            className="h-8 w-auto"
+          />
+          <span className="text-2xl font-bold bg-gradient-to-r from-aura-purple to-aura-green bg-clip-text text-transparent">
+            AURAFLO
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -72,8 +90,8 @@ const Navbar = () => {
             Our Team
           </Link>
           <Link 
-            to="/contact-us" 
-            className={`nav-link ${isActive('/contact-us') ? 'text-aura-purple after:w-full' : ''}`}
+            to="/contact" 
+            className={`nav-link ${isActive('/contact') ? 'text-aura-purple after:w-full' : ''}`}
           >
             Contact Us
           </Link>
@@ -81,17 +99,23 @@ const Navbar = () => {
 
         {/* Search and Cart */}
         <div className="hidden md:flex items-center space-x-4">
-          <div className="relative">
+          <form onSubmit={handleSearchSubmit} className="relative">
             <input
               type="text"
               placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="py-1.5 pl-10 pr-4 rounded-full text-sm neo-blur w-36 focus:w-48 transition-all duration-300 focus:outline-none"
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-          </div>
-          <Link to="/cart" className="relative hover-scale text-white p-2 rounded-full hover:bg-aura-purple/10 transition-all duration-300">
+          </form>
+          <Link to="/cart" className="relative hover-scale text-white p-2 rounded-full hover:bg-aura-purple/10 transition-colors duration-300">
             <ShoppingCart className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 bg-aura-purple text-xs w-4 h-4 flex items-center justify-center rounded-full">0</span>
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-aura-purple text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                {totalItems}
+              </span>
+            )}
           </Link>
         </div>
 
@@ -144,21 +168,23 @@ const Navbar = () => {
               Our Team
             </Link>
             <Link 
-              to="/contact-us" 
-              className={`nav-link block py-2 ${isActive('/contact-us') ? 'text-aura-purple' : ''}`} 
+              to="/contact" 
+              className={`nav-link block py-2 ${isActive('/contact') ? 'text-aura-purple' : ''}`} 
               onClick={() => setIsMenuOpen(false)}
             >
               Contact Us
             </Link>
             
-            <div className="relative mt-2">
+            <form onSubmit={handleSearchSubmit} className="relative mt-2">
               <input
                 type="text"
                 placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full py-2 pl-10 pr-4 rounded-full neo-blur focus:outline-none"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            </div>
+            </form>
             
             <Link to="/cart" className="flex items-center space-x-2 py-2 hover:text-aura-purple transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
               <ShoppingCart className="w-5 h-5" />

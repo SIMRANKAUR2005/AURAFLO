@@ -1,15 +1,22 @@
 import { Link } from "react-router-dom";
 import { Instagram, Twitter, Facebook, Youtube, Mail, MapPin, Phone } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-aura-darkBlack relative overflow-hidden pt-16 pb-8">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-aura-purple/50 to-transparent"></div>
-      <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_bottom_left,rgba(126,105,171,0.05),transparent_40%)]"></div>
-      
-      <div className="container mx-auto px-4 relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+    <footer className="bg-aura-black/50 backdrop-blur-lg border-t border-aura-purple/10">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Logo and Description */}
+          <div className="col-span-1">
+            <Link to="/" className="block w-32 h-8 mb-4">
+              <img src={logo} alt="AuraFlo Logo" className="w-full h-full object-contain" />
+            </Link>
+            <p className="text-muted-foreground text-sm">
+              Revolutionizing yoga practice with smart technology and innovative design.
+            </p>
+          </div>
+          
           {/* Brand Column */}
           <div>
             <Link to="/" className="inline-flex items-center space-x-3 mb-6">
@@ -23,32 +30,31 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.instagram.com/aurafloo.ai?igsh=MXU5emE4dG1xc2Fhdw==" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
               </a>
               <a 
-                href="#" 
+                href="https://www.linkedin.com/company/auraflo/" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
-                aria-label="Twitter"
+                aria-label="LinkedIn"
               >
-                <Twitter className="w-4 h-4" />
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
               </a>
               <a 
-                href="#" 
+                href="mailto:info@auraflo.com" 
                 className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
-                aria-label="Facebook"
+                aria-label="Email"
               >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a 
-                href="#" 
-                className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-4 h-4" />
+                <Mail className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -145,6 +151,9 @@ const Footer = () => {
             © {new Date().getFullYear()} AuraFlo. All rights reserved.
           </p>
           <div className="flex space-x-6">
+            <Link to="/accessibility" className="text-sm text-muted-foreground hover:text-aura-purple transition-colors duration-300">
+              Accessibility
+            </Link>
             <Link to="/privacy" className="text-sm text-muted-foreground hover:text-aura-purple transition-colors duration-300">
               Privacy Policy
             </Link>

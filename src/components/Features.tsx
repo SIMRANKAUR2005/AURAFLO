@@ -10,6 +10,7 @@ import {
   Heart,
   Clock
 } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const Features = () => {
   const features = [

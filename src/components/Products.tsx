@@ -1,11 +1,29 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle, ArrowRight } from "lucide-react";
+import { CheckCircle, ArrowRight, ShoppingCart } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { toast } from "@/components/ui/use-toast";
+import { useCart } from "../contexts/CartContext";
 
 const Products = () => {
   const [activeTab, setActiveTab] = useState("auraflo-1");
+  const { addToCart } = useCart();
   
+  const handleAddToCart = (product: any) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image
+    });
+    
+    toast({
+      title: "Added to cart!",
+      description: `${product.name} has been added to your cart.`
+    });
+  };
+
   const products = [
     {
       id: "auraflo-1",
@@ -178,12 +196,21 @@ const Products = () => {
                         <span className="text-muted-foreground">Starting at</span>
                         <div className="text-3xl font-bold">${product.price}</div>
                       </div>
-                      <Link 
-                        to={`/product/${product.id}`}
-                        className="flex items-center gap-2 px-6 py-3 rounded-full bg-aura-purple hover:bg-aura-purple-light transition-all duration-500 group"
-                      >
-                        Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" />
-                      </Link>
+                      <div className="flex gap-4">
+                        <button
+                          onClick={() => handleAddToCart(product)}
+                          className="flex items-center gap-2 px-6 py-3 rounded-full bg-aura-purple hover:bg-aura-purple-light transition-all duration-500"
+                        >
+                          <ShoppingCart className="w-4 h-4" />
+                          Add to Cart
+                        </button>
+                        <Link 
+                          to={`/product/${product.id}`}
+                          className="flex items-center gap-2 px-6 py-3 rounded-full border border-aura-purple hover:bg-aura-purple/10 transition-all duration-500 group"
+                        >
+                          Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
