@@ -2,6 +2,7 @@ import { Linkedin, Twitter, Globe } from "lucide-react";
 import vlsiImage from "../assets/team/ankit-vlsi.jpeg";
 import greenImage from "../assets/team/ankit-green.jpeg";
 import bwImage from "../assets/team/ankit-bw.jpeg";
+import vedikaImage from "../assets/team/vedika.jpeg";
 
 const Team = () => {
   const team = [
@@ -22,6 +23,12 @@ const Team = () => {
       position: "CBO,AuraFLO",
       bio: "Driving strategic growth and market expansion for AuraFlo AI Mats, bridging innovation with business excellence to redefine intelligent flooring solutions",
       image: bwImage
+    },
+    {
+      name: "Vedika Chawla",
+      position: "Founding Member,AuraFLO",
+      bio: "Dedicated to bringing innovative wellness solutions to life through technology and design.",
+      image: vedikaImage
     }
   ];
 

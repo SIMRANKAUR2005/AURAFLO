@@ -7,6 +7,15 @@ import Footer from "../components/Footer";
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [activeImage, setActiveImage] = useState(0);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  
+  // Check wishlist status on mount
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    setIsWishlisted(wishlist.some((item: any) => item.id === id));
+  }, [id]);
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -138,10 +147,82 @@ const ProductDetail = () => {
     );
   }
 
+  // Set initial selected color
+  useEffect(() => {
+    if (product && !selectedColor) {
+      setSelectedColor(product.colors[0]);
+    }
+  }, [product]);
+
   // Calculate the price if there's a discount
   const finalPrice = product.discount > 0 
     ? product.price - product.discount 
     : product.price;
+
+  // Handle color selection
+  const handleColorSelect = (color: string) => {
+    setSelectedColor(color);
+  };
+
+  // Handle wishlist toggle
+  const handleWishlistToggle = () => {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    
+    if (isWishlisted) {
+      // Remove from wishlist
+      const updatedWishlist = wishlist.filter((item: any) => item.id !== id);
+      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+    } else {
+      // Add to wishlist
+      const wishlistItem = {
+        id,
+        name: product.name,
+        price: finalPrice,
+        description: product.description,
+        image: product.images[0],
+        color: selectedColor
+      };
+      localStorage.setItem('wishlist', JSON.stringify([...wishlist, wishlistItem]));
+    }
+    
+    setIsWishlisted(!isWishlisted);
+  };
+
+  // Handle share
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: product.name,
+          text: product.description,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.log('Error sharing:', error);
+        setShowShareModal(true);
+      }
+    } else {
+      setShowShareModal(true);
+    }
+  };
+
+  // Get color style
+  const getColorStyle = (color: string) => {
+    switch (color) {
+      case "Midnight Black":
+        return "bg-aura-black border border-white/20";
+      case "Deep Purple":
+        return "bg-aura-purple";
+      case "Forest Green":
+        return "bg-aura-green";
+      case "Ocean Blue":
+        return "bg-blue-600";
+      case "Sunset Orange":
+        return "bg-orange-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-aura-black">
@@ -223,21 +304,25 @@ const ProductDetail = () => {
                 {product.colors.map((color, index) => (
                   <button
                     key={index}
-                    className="w-8 h-8 rounded-full border border-aura-purple/30 flex items-center justify-center"
+                    onClick={() => handleColorSelect(color)}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      selectedColor === color 
+                        ? "ring-2 ring-aura-purple ring-offset-2 ring-offset-aura-black" 
+                        : "border border-aura-purple/30"
+                    }`}
                     title={color}
                   >
-                    <span 
-                      className={`w-6 h-6 rounded-full ${
-                        color === "Midnight Black" ? "bg-aura-black border border-white/20" :
-                        color === "Deep Purple" ? "bg-aura-purple" :
-                        color === "Forest Green" ? "bg-aura-green" :
-                        color === "Ocean Blue" ? "bg-blue-600" :
-                        "bg-orange-500" // Sunset Orange
-                      }`}
-                    ></span>
+                    <span className={`w-6 h-6 rounded-full ${getColorStyle(color)}`}>
+                      {selectedColor === color && (
+                        <Check className="w-4 h-4 text-white mx-auto my-auto" />
+                      )}
+                    </span>
                   </button>
                 ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-2">
+                Selected: {selectedColor}
+              </p>
             </div>
             
             {/* Action Buttons */}
@@ -246,10 +331,22 @@ const ProductDetail = () => {
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
-              <button className="p-3 rounded-full glass hover:bg-aura-purple/20 transition-colors duration-300">
-                <Heart className="w-5 h-5" />
+              <button 
+                onClick={handleWishlistToggle}
+                className={`p-3 rounded-full glass transition-colors duration-300 ${
+                  isWishlisted 
+                    ? "bg-aura-purple text-white" 
+                    : "hover:bg-aura-purple/20"
+                }`}
+                title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+              >
+                <Heart className={`w-5 h-5 ${isWishlisted ? "fill-current" : ""}`} />
               </button>
-              <button className="p-3 rounded-full glass hover:bg-aura-purple/20 transition-colors duration-300">
+              <button 
+                onClick={handleShare}
+                className="p-3 rounded-full glass hover:bg-aura-purple/20 transition-colors duration-300"
+                title="Share"
+              >
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
@@ -293,6 +390,52 @@ const ProductDetail = () => {
         </div>
       </div>
       
+      {/* Share Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-aura-darkBlack rounded-xl p-8 max-w-md w-full mx-4 glass">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold">Share {product.name}</h3>
+              <button
+                onClick={() => setShowShareModal(false)}
+                className="text-muted-foreground hover:text-white hover:scale-110 transition-all duration-300"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={() => {
+                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(product.description)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+                  setShowShareModal(false);
+                }}
+                className="p-4 glass rounded-lg hover:bg-aura-purple/20 transition-colors duration-300 flex items-center justify-center gap-2"
+              >
+                Twitter
+              </button>
+              <button
+                onClick={() => {
+                  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+                  setShowShareModal(false);
+                }}
+                className="p-4 glass rounded-lg hover:bg-aura-purple/20 transition-colors duration-300 flex items-center justify-center gap-2"
+              >
+                Facebook
+              </button>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  setShowShareModal(false);
+                }}
+                className="p-4 glass rounded-lg hover:bg-aura-purple/20 transition-colors duration-300 flex items-center justify-center gap-2 col-span-2"
+              >
+                Copy Link
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );
