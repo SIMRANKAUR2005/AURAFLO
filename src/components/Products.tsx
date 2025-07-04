@@ -80,29 +80,31 @@ const Products = () => {
       
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our AuraFlo <span className="text-gradient">Product Line</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our <span className="text-gradient">AuraFlo</span></h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Discover the perfect mat for your practice, from sensor-based alignment to AI-powered personalized coaching.
           </p>
         </div>
         
         <Tabs defaultValue="auraflo-1" value={activeTab} onValueChange={setActiveTab} className="w-full mb-12">
-          <TabsList className="w-full flex justify-center bg-muted/30 p-1 glass">
-            {products.map((product) => (
-              <TabsTrigger 
-                key={product.id} 
-                value={product.id}
-                className="flex-1 py-3 px-4 data-[state=active]:glass data-[state=active]:shadow-lg transition-all duration-300"
-              >
-                <div className="text-center">
-                  <h3 className={`text-xl font-semibold ${activeTab === product.id ? "text-gradient" : ""}`}>
-                    {product.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{product.tagline}</p>
-                </div>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="overflow-x-auto pb-4 -mb-4">
+            <TabsList className="w-full min-w-[600px] flex justify-center bg-muted/30 p-1 glass">
+              {products.map((product) => (
+                <TabsTrigger 
+                  key={product.id} 
+                  value={product.id}
+                  className="flex-1 py-3 px-6 data-[state=active]:glass data-[state=active]:shadow-lg transition-all duration-300 whitespace-nowrap"
+                >
+                  <div className="text-center">
+                    <h3 className={`text-xl font-semibold ${activeTab === product.id ? "text-gradient" : ""}`}>
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{product.tagline}</p>
+                  </div>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
           
           {/* Product Details */}
           {products.map((product) => (

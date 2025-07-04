@@ -3,6 +3,30 @@ import { useParams, Link } from "react-router-dom";
 import { ShoppingCart, Heart, Share2, ChevronRight, Check } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useCart } from "../context/CartContext";
+import { toast } from "react-hot-toast";
+
+interface Product {
+  id: string;
+  name: string;
+  tagline: string;
+  price: number;
+  discount: number;
+  description: string;
+  longDescription: string;
+  colors: string[];
+  features: string[];
+  specs: {
+    dimensions: string;
+    thickness: string;
+    weight: string;
+    battery: string;
+    connectivity: string;
+    materials: string;
+    warranty: string;
+  };
+  images: string[];
+}
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,6 +34,8 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState("");
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
   
   // Check wishlist status on mount
   useEffect(() => {
@@ -188,6 +214,22 @@ const ProductDetail = () => {
     setIsWishlisted(!isWishlisted);
   };
 
+  // Handle add to cart
+  const handleAddToCart = () => {
+    if (product && id) {
+      addToCart({
+        id: id,
+        name: product.name,
+        price: finalPrice,
+        description: product.description,
+        image: product.images[0],
+        color: selectedColor,
+        quantity: quantity
+      });
+      toast.success(`${product.name} added to cart`);
+    }
+  };
+
   // Handle share
   const handleShare = async () => {
     if (navigator.share) {
@@ -327,7 +369,10 @@ const ProductDetail = () => {
             
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 mb-10">
-              <button className="flex-1 min-w-[150px] px-6 py-3 rounded-full bg-aura-purple hover:bg-aura-purple-light transition-colors duration-300 font-medium flex items-center justify-center gap-2">
+              <button 
+                onClick={handleAddToCart}
+                className="flex-1 min-w-[150px] px-6 py-3 rounded-full bg-aura-purple hover:bg-aura-purple-light transition-colors duration-300 font-medium flex items-center justify-center gap-2"
+              >
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>

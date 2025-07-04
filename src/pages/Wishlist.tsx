@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { Heart, Trash2, ShoppingCart } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
+import { useCart } from "../context/CartContext";
 
 interface WishlistItem {
   id: string;
@@ -34,22 +35,33 @@ const productImages = {
 };
 
 const Wishlist = () => {
-  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
-
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('wishlist') || '[]') as WishlistItem[];
-    setWishlistItems(items);
-  }, []);
+  const { addToCart } = useCart();
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>(() => {
+    const saved = localStorage.getItem("wishlist");
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const removeFromWishlist = (id: string) => {
-    const itemToRemove = wishlistItems.find(item => item.id === id);
-    const updatedWishlist = wishlistItems.filter(item => item.id !== id);
-    setWishlistItems(updatedWishlist);
-    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-    
-    if (itemToRemove) {
-      toast.success(`${itemToRemove.name} removed from wishlist`);
-    }
+    setWishlistItems((prev) => {
+      const newItems = prev.filter((item) => item.id !== id);
+      localStorage.setItem("wishlist", JSON.stringify(newItems));
+      return newItems;
+    });
+    toast.success("Item removed from wishlist");
+  };
+
+  const handleAddToCart = (item: WishlistItem) => {
+    addToCart({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      description: item.description,
+      image: item.image,
+      color: item.color,
+      quantity: 1
+    });
+    removeFromWishlist(item.id);
+    toast.success(`${item.name} added to cart and removed from wishlist`);
   };
 
   return (
@@ -116,7 +128,10 @@ const Wishlist = () => {
                 
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-bold">${item.price}</span>
-                  <button className="p-2 rounded-full glass hover:bg-aura-purple/20 transition-colors duration-300">
+                  <button 
+                    onClick={() => handleAddToCart(item)}
+                    className="p-2 rounded-full glass hover:bg-aura-purple/20 transition-colors duration-300"
+                  >
                     <ShoppingCart className="w-5 h-5" />
                   </button>
                 </div>

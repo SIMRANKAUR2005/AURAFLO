@@ -63,7 +63,7 @@ const TermsOfService = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4">8. Contact Information</h2>
             <p className="text-muted-foreground">
-              For questions about these Terms of Service, please contact us at legal@auraflo.com.
+              For questions about these Terms of Service, please contact us at aurafloo@gmail.com.
             </p>
           </section>
         </CardContent>

@@ -98,9 +98,9 @@ const Contact = () => {
             <CardDescription>We'd love to hear from you. Please fill out the form or use our contact information below.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <Mail className="h-5 w-5" />
-              <span>support@auraflo.com</span>
+            <div className="flex items-center space-x-2">
+              <Mail className="w-5 h-5 text-aura-purple" />
+              <span>aurafloo@gmail.com</span>
             </div>
             <div className="flex items-center space-x-3">
               <Phone className="h-5 w-5" />

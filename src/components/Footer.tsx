@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Twitter, Facebook, Youtube, Mail, MapPin, Phone, Send } from "lucide-react";
+import { Instagram, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
 import { useState } from "react";
 
 const Footer = () => {
@@ -25,11 +25,11 @@ const Footer = () => {
       <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_bottom_left,rgba(126,105,171,0.05),transparent_40%)]"></div>
       
       {/* Background Logo */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none">
         <img 
-          src="/images/logo.png" 
+          src={`${window.location.origin}/images/logo.png`} 
           alt="AuraFlo Background Logo" 
-          className="w-[600px] h-[600px] object-contain brightness-200 contrast-125 animate-float"
+          className="w-[600px] h-[600px] object-contain brightness-150 contrast-150 animate-float"
         />
       </div>
       
@@ -38,8 +38,12 @@ const Footer = () => {
           {/* Brand Column */}
           <div>
             <Link to="/" className="inline-flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-aura-purple/20 to-aura-green/20 p-2 ring-2 ring-aura-purple/30">
-                <img src="/images/logo.png" alt="AuraFlo Logo" className="w-full h-full object-contain" />
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-aura-purple/30 to-aura-green/30 p-2 ring-2 ring-aura-purple/40">
+                <img 
+                  src={`${window.location.origin}/images/logo.png`} 
+                  alt="AuraFlo Logo" 
+                  className="w-full h-full object-contain brightness-150 contrast-150"
+                />
               </div>
               <span className="text-2xl font-bold text-gradient">AURAFLO</span>
             </Link>
@@ -48,32 +52,18 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.instagram.com/aurafloo.ai?igsh=MXU5emE4dG1xc2Fhdw==" 
                 className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
               </a>
               <a 
-                href="#" 
+                href="https://www.linkedin.com/company/auraflo/" 
                 className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
-                aria-label="Twitter"
+                aria-label="LinkedIn"
               >
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a 
-                href="#" 
-                className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a 
-                href="#" 
-                className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/20 transition-colors duration-300"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-4 h-4" />
+                <Linkedin className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -158,7 +148,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center group">
                 <Mail className="w-5 h-5 text-aura-purple shrink-0 mr-3 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-muted-foreground group-hover:text-white transition-colors duration-300">info@auraflo.com</span>
+                <span className="text-muted-foreground group-hover:text-white transition-colors duration-300">aurafloo@gmail.com</span>
               </li>
             </ul>
             <button

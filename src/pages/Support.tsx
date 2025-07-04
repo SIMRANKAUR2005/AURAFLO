@@ -33,7 +33,7 @@ const Support = () => {
       title: "Email Support",
       description: "Get in touch with our support team via email",
       icon: <Mail className="w-6 h-6" />,
-      contact: "support@auraflo.com"
+      contact: "aurafloo@gmail.com"
     },
     {
       title: "Phone Support",

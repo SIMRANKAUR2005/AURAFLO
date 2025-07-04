@@ -75,7 +75,7 @@ const Team = () => {
                 
                 <div className="flex space-x-3">
                   <a 
-                    href="#" 
+                    href="https://www.linkedin.com/in/angad2205" 
                     className="w-9 h-9 rounded-full glass flex items-center justify-center hover:bg-aura-purple/30 transition-colors duration-300 hover:scale-110"
                     aria-label={`${member.name}'s LinkedIn`}
                   >
